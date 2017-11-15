@@ -13,10 +13,12 @@ function Persona(nombre, genero, pelo, complemento) {
     }
 }
 
+// Genera un número aleatorio desde 0 hasta el número dado.
 function numeroAleatorio(tamaño) {
     return Math.floor(Math.random() * tamaño);
 }
 
+// Comprueba si la persona generada ya está en el tablero.
 function comprobarRepetido(personasJugador, genero, pelo, complemento) {
     var repetido = false;
     for(var i = 0; i < personasJugador.length; i++) {
@@ -29,6 +31,7 @@ function comprobarRepetido(personasJugador, genero, pelo, complemento) {
     return repetido;
 }
 
+// Genera las características de las personas.
 function generarCaracteristicas(personasJugador, posicion) {
     var personaRepetida = false;
     do {
