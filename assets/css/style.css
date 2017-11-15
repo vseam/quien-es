@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.box-container {
+    background-color: #FF0000;
+    overflow: hidden;
+    float: left;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 900px;
+}
+
+.box-container div {
+    background-color: #00FF00;
+    float: left;
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+    padding: 10px;
+}
+
+aside {
+    background-color: blue;
+    margin-left: 10px;
+    float: left;
+    padding: 20px;
+    width: 400px;
+}
+
+.game-mode {
+    margin-bottom: 10px;
+}
