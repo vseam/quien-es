@@ -57,6 +57,7 @@ function caracteristicasPersonas(personasJ1, personasJ2) {
     }
 }
 
+// Comprueba si el sospechoso introducido existe.
 function comprobarSospechoso(personasJugador, sospechosoJugador) {
     var existe = false;
     for(var i = 0; i < personasJugador.length; i++) {
@@ -69,6 +70,7 @@ function comprobarSospechoso(personasJugador, sospechosoJugador) {
     return existe;
 }
 
+// Comprueba si se debe empezar la partida.
 function comprobarEmpezar() {
     if(sospechosoJ1.length != 0 && sospechosoJ2.length != 0) {
         gestorJuego();
@@ -77,6 +79,7 @@ function comprobarEmpezar() {
     }
 }
 
+// Comienza el temporizador.
 var temporizador = null;
 function empezarTiempo() {
     console.log('------------');
@@ -94,6 +97,7 @@ function empezarTiempo() {
     }, 1000);
 }
 
+// Cambia el turno del jugador.
 function cambiarJugador(jugadorActual) {
     // True  = Jugador 1
     // False = Jugador 2
@@ -131,37 +135,38 @@ function cambiarJugador(jugadorActual) {
     }
 }
 
+// Gestor de la partida.
 function gestorJuego() {
     empezarTiempo();
     cambiarJugador(jugadorActual);
 }
 
+// Devuelve el objeto del sospechoso.
+function obtenerSospechoso(sospechoso, personasJugador) {
+    for(var i = 0; i < personasJugador.length; i++) {
+        if(sospechoso == personasJugador[i].nombre.toLowerCase()) {
+            return personasJugador[i];
+            break;
+        }
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-function comprobarGanar(jugador) {
+// Comprueba si un jugador ha ganado la partida.
+function comprobarGanar(jugadorActual) {
     var contadorJ1 = 0;
         contadorJ2 = 0;
-    // True = Jugador 1; False = Jugador 2;
-    if(jugador) {
-        for(var i = 0; i < personasJugador1.length; i++) {
+
+    // True  = Jugador 1
+    // False = Jugador 2
+    if(jugadorActual) {
+        for(var i = 0; i < personasJ1.length; i++) {
             var elementoJ1 = document.getElementsByClassName('persona-j1');
             if(elementoJ1[i].value == 'true') {
                 contadorJ1++;
             }
         }
     } else {
-        for(var i = 0; i < personasJugador1.length; i++) {
+        for(var i = 0; i < personasJ1.length; i++) {
             var elementoJ2 = document.getElementsByClassName('persona-j2');
             if(elementoJ2[i].value == 'true') {
                 contadorJ2++;

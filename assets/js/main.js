@@ -38,7 +38,7 @@ document.getElementById('seleccionar-sospechoso-j2').onclick = function() {
     }
 }
 
-//
+// Envia la pregunta y comprueba los sospechosos.
 document.getElementById('enviar-pregunta-j1').onclick = function() {
     var pregunta = document.getElementById('pregunta-j1');
     var preguntaValue = pregunta.value;
@@ -46,27 +46,21 @@ document.getElementById('enviar-pregunta-j1').onclick = function() {
 
     preguntaValue = preguntaValue.split(' ');
     if(preguntaValue.length == 2) {
-        // Extraer esta parte -------
-        var posicion = 0;
-        for(var i = 0; i < personasJ1.length; i++) {
-            if(sospechosoJ2 == personasJ1[i].nombre) {
-                posicion = i;
-                break;
-            }
-        }
-        // --------------------------
+        preguntaValue = preguntaValue[1].toLowerCase();
 
-        if(personasJugador1[posicion].genero == preguntaValue[1] || personasJugador1[posicion].pelo == preguntaValue[1] || personasJugador1[posicion].complemento == preguntaValue[1]) {
-            for(var k = 0; k < personasJugador1.length; k++) {
-                if(personasJugador1[k].genero != preguntaValue[1] && personasJugador1[k].pelo != preguntaValue[1] && personasJugador1[k].complemento != preguntaValue[1]) {
+        var sospechoso = obtenerSospechoso(sospechosoJ2.value, personasJ1);
+
+        if(sospechoso.genero.toLowerCase() == preguntaValue || sospechoso.pelo.toLowerCase() == preguntaValue || sospechoso.complemento.toLowerCase() == preguntaValue) {
+            for(var k = 0; k < personasJ1.length; k++) {
+                if(personasJ1[k].genero.toLowerCase() != preguntaValue && personasJ1[k].pelo.toLowerCase() != preguntaValue && personasJ1[k].complemento.toLowerCase() != preguntaValue) {
                     var elementoJ1 = document.getElementsByClassName('persona-j1');
                     elementoJ1[k].style.backgroundColor = '#CCC';
                     elementoJ1[k].value = 'true';
                 }
             }
         } else {
-            for(var k = 0; k < personasJugador1.length; k++) {
-                if(personasJugador1[k].genero == preguntaValue[1] || personasJugador1[k].pelo == preguntaValue[1] || personasJugador1[k].complemento == preguntaValue[1]) {
+            for(var k = 0; k < personasJ1.length; k++) {
+                if(personasJ1[k].genero.toLowerCase() == preguntaValue || personasJ1[k].pelo.toLowerCase() == preguntaValue || personasJ1[k].complemento.toLowerCase() == preguntaValue) {
                     var elementoJ1 = document.getElementsByClassName('persona-j1');
                     elementoJ1[k].style.backgroundColor = '#CCC';
                     elementoJ1[k].value = 'true';
@@ -78,13 +72,47 @@ document.getElementById('enviar-pregunta-j1').onclick = function() {
         if(comprobarGanar(jugadorActual)) {
             alert('Ha ganado el Jugador 1!');
         } else {
-            if(jugadorActual) {
-                jugadorActual = false;
-            } else {
-                jugadorActual = true;
-            }
+            (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+            gestorJuego();
+        }
+    }
+}
 
-            juego();
+document.getElementById('enviar-pregunta-j2').onclick = function() {
+    var pregunta = document.getElementById('pregunta-j2');
+    var preguntaValue = pregunta.value;
+    pregunta.value = '';
+
+    preguntaValue = preguntaValue.split(' ');
+    if(preguntaValue.length == 2) {
+        preguntaValue = preguntaValue[1].toLowerCase();
+
+        var sospechoso = obtenerSospechoso(sospechosoJ1.value, personasJ2);
+
+        if(sospechoso.genero.toLowerCase() == preguntaValue || sospechoso.pelo.toLowerCase() == preguntaValue || sospechoso.complemento.toLowerCase() == preguntaValue) {
+            for(var k = 0; k < personasJ2.length; k++) {
+                if(personasJ2[k].genero.toLowerCase() != preguntaValue && personasJ2[k].pelo.toLowerCase() != preguntaValue && personasJ2[k].complemento.toLowerCase() != preguntaValue) {
+                    var elementoJ2 = document.getElementsByClassName('persona-j2');
+                    elementoJ2[k].style.backgroundColor = '#CCC';
+                    elementoJ2[k].value = 'true';
+                }
+            }
+        } else {
+            for(var k = 0; k < personasJ2.length; k++) {
+                if(personasJ2[k].genero.toLowerCase() == preguntaValue || personasJ2[k].pelo.toLowerCase() == preguntaValue || personasJ2[k].complemento.toLowerCase() == preguntaValue) {
+                    var elementoJ2 = document.getElementsByClassName('persona-j2');
+                    elementoJ2[k].style.backgroundColor = '#CCC';
+                    elementoJ2[k].value = 'true';
+                }
+            }
+        }
+
+        clearInterval(temporizador);
+        if(comprobarGanar(jugadorActual)) {
+            alert('Ha ganado el Jugador 1!');
+        } else {
+            (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+            gestorJuego();
         }
     }
 }
