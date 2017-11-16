@@ -9,3 +9,4 @@ var personasJ1 = new Array();
 var sospechosoJ1 = '';
     sospechosoJ2 = '';
 var jugadorActual = true;
+var modoJuego = true;

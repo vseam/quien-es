@@ -73,6 +73,12 @@ function comprobarSospechoso(personasJugador, sospechosoJugador) {
 // Comprueba si se debe empezar la partida.
 function comprobarEmpezar() {
     if(sospechosoJ1.length != 0 && sospechosoJ2.length != 0) {
+        var inputRadio = document.getElementsByName('game-mode');
+        inputRadio[0].disabled = true;
+        inputRadio[1].disabled = true;
+
+        (inputRadio[0].checked == true) ? modoJuego = true : modoJuego = false;
+
         gestorJuego();
     } else {
         return false;
@@ -90,9 +96,22 @@ function empezarTiempo() {
 
         if(tiempo == 0) {
             clearInterval(temporizador);
-            (jugadorActual) ? jugadorActual = false : jugadorActual = true;
 
-            gestorJuego();
+            if(modoJuego == true) {
+                (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+                gestorJuego();
+            } else {
+                if(comprobarGanar(jugadorActual)) {
+                    if(jugadorActual == true) {
+                        alert('Ha ganado el Jugador 1!');
+                    } else {
+                        alert('Ha ganado el Jugador 2!');
+                    }
+                } else {
+                    (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+                    gestorJuego();
+                }
+            }
         }
     }, 1000);
 }
@@ -151,6 +170,33 @@ function obtenerSospechoso(sospechoso, personasJugador) {
     }
 }
 
+// Comprueba si una pregunta es correcta.
+function comprobarPregunta(sospechoso, personasJugador, pregunta, elementos) {
+    if(sospechoso.genero.toLowerCase() == pregunta || sospechoso.pelo.toLowerCase() == pregunta || sospechoso.complemento.toLowerCase() == pregunta) {
+        if(modoJuego == true) {
+            for(var k = 0; k < personasJugador.length; k++) {
+                if(personasJugador[k].genero.toLowerCase() != pregunta && personasJugador[k].pelo.toLowerCase() != pregunta && personasJugador[k].complemento.toLowerCase() != pregunta) {
+                    elementos[k].style.backgroundColor = '#CCC';
+                    elementos[k].value = 'true';
+                }
+            }
+        } else {
+            alert('Verdadero');
+        }
+    } else {
+        if(modoJuego == true) {
+            for(var k = 0; k < personasJugador.length; k++) {
+                if(personasJugador[k].genero.toLowerCase() == pregunta || personasJugador[k].pelo.toLowerCase() == pregunta || personasJugador[k].complemento.toLowerCase() == pregunta) {
+                    elementos[k].style.backgroundColor = '#CCC';
+                    elementos[k].value = 'true';
+                }
+            }
+        } else {
+            alert('Falso');
+        }
+    }
+}
+
 // Comprueba si un jugador ha ganado la partida.
 function comprobarGanar(jugadorActual) {
     var contadorJ1 = 0;
@@ -180,5 +226,17 @@ function comprobarGanar(jugadorActual) {
 
     if(contadorJ2 == 7) {
         return true;
+    }
+}
+
+function ocultarSospechoso(elemento) {
+    if(modoJuego != true) {
+        if(elemento.value != 'true') {
+            elemento.style.backgroundColor = '#CCC';
+            elemento.value = 'true';
+        } else {
+            elemento.style.backgroundColor = '#00FF00';
+            elemento.value = '';
+        }
     }
 }

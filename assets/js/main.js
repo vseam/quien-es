@@ -50,30 +50,20 @@ document.getElementById('enviar-pregunta-j1').onclick = function() {
 
         var sospechoso = obtenerSospechoso(sospechosoJ2.value, personasJ1);
 
-        if(sospechoso.genero.toLowerCase() == preguntaValue || sospechoso.pelo.toLowerCase() == preguntaValue || sospechoso.complemento.toLowerCase() == preguntaValue) {
-            for(var k = 0; k < personasJ1.length; k++) {
-                if(personasJ1[k].genero.toLowerCase() != preguntaValue && personasJ1[k].pelo.toLowerCase() != preguntaValue && personasJ1[k].complemento.toLowerCase() != preguntaValue) {
-                    var elementoJ1 = document.getElementsByClassName('persona-j1');
-                    elementoJ1[k].style.backgroundColor = '#CCC';
-                    elementoJ1[k].value = 'true';
-                }
-            }
-        } else {
-            for(var k = 0; k < personasJ1.length; k++) {
-                if(personasJ1[k].genero.toLowerCase() == preguntaValue || personasJ1[k].pelo.toLowerCase() == preguntaValue || personasJ1[k].complemento.toLowerCase() == preguntaValue) {
-                    var elementoJ1 = document.getElementsByClassName('persona-j1');
-                    elementoJ1[k].style.backgroundColor = '#CCC';
-                    elementoJ1[k].value = 'true';
-                }
-            }
-        }
+        var elementoJ1 = document.getElementsByClassName('persona-j1');
+        comprobarPregunta(sospechoso, personasJ1, preguntaValue, elementoJ1);
 
-        clearInterval(temporizador);
-        if(comprobarGanar(jugadorActual)) {
-            alert('Ha ganado el Jugador 1!');
+        if(modoJuego == true) {
+            clearInterval(temporizador);
+            if(comprobarGanar(jugadorActual)) {
+                alert('Ha ganado el Jugador 1!');
+            } else {
+                (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+                gestorJuego();
+            }
         } else {
-            (jugadorActual) ? jugadorActual = false : jugadorActual = true;
-            gestorJuego();
+            document.getElementById('pregunta-j1').disabled = true;
+            document.getElementById('enviar-pregunta-j1').disabled = true;
         }
     }
 }
@@ -89,30 +79,20 @@ document.getElementById('enviar-pregunta-j2').onclick = function() {
 
         var sospechoso = obtenerSospechoso(sospechosoJ1.value, personasJ2);
 
-        if(sospechoso.genero.toLowerCase() == preguntaValue || sospechoso.pelo.toLowerCase() == preguntaValue || sospechoso.complemento.toLowerCase() == preguntaValue) {
-            for(var k = 0; k < personasJ2.length; k++) {
-                if(personasJ2[k].genero.toLowerCase() != preguntaValue && personasJ2[k].pelo.toLowerCase() != preguntaValue && personasJ2[k].complemento.toLowerCase() != preguntaValue) {
-                    var elementoJ2 = document.getElementsByClassName('persona-j2');
-                    elementoJ2[k].style.backgroundColor = '#CCC';
-                    elementoJ2[k].value = 'true';
-                }
-            }
-        } else {
-            for(var k = 0; k < personasJ2.length; k++) {
-                if(personasJ2[k].genero.toLowerCase() == preguntaValue || personasJ2[k].pelo.toLowerCase() == preguntaValue || personasJ2[k].complemento.toLowerCase() == preguntaValue) {
-                    var elementoJ2 = document.getElementsByClassName('persona-j2');
-                    elementoJ2[k].style.backgroundColor = '#CCC';
-                    elementoJ2[k].value = 'true';
-                }
-            }
-        }
+        var elementoJ2 = document.getElementsByClassName('persona-j2');
+        comprobarPregunta(sospechoso, personasJ2, preguntaValue, elementoJ2);
 
-        clearInterval(temporizador);
-        if(comprobarGanar(jugadorActual)) {
-            alert('Ha ganado el Jugador 1!');
+        if(modoJuego == true) {
+            clearInterval(temporizador);
+            if(comprobarGanar(jugadorActual)) {
+                alert('Ha ganado el Jugador 1!');
+            } else {
+                (jugadorActual) ? jugadorActual = false : jugadorActual = true;
+                gestorJuego();
+            }
         } else {
-            (jugadorActual) ? jugadorActual = false : jugadorActual = true;
-            gestorJuego();
+            document.getElementById('pregunta-j2').disabled = true;
+            document.getElementById('enviar-pregunta-j2').disabled = true;
         }
     }
 }
