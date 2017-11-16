@@ -9,6 +9,12 @@ body {
     font-size: 14px;
 }
 
+.game-mode {
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
 .box-container {
     background-color: #FF0000;
     overflow: hidden;
@@ -22,7 +28,7 @@ body {
     background-color: #00FF00;
     float: left;
     margin: 10px;
-    height: 200px;
+    height: 95px;
     width: 200px;
     padding: 10px;
 }
