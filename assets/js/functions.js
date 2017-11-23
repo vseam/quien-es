@@ -87,12 +87,21 @@ function comprobarEmpezar() {
 
 // Comienza el temporizador.
 var temporizador = null;
+var audio1 = new Audio('./assets/sounds/misc198.mp3');
+var audio2 = new Audio('./assets/sounds/misc196.mp3');
 function empezarTiempo() {
     console.log('------------');
     var tiempo = 30;
     temporizador = setInterval(function() {
         tiempo--;
         console.log('Timeleft: ' + tiempo);
+
+        if(tiempo == 10) {
+            audio1.play();
+        } else if(tiempo == 5) {
+            audio1.pause();
+            audio2.play();
+        }
 
         if(tiempo == 0) {
             clearInterval(temporizador);
